@@ -1,0 +1,14 @@
+{
+    "name": "boddigr/itopapi",
+    "description": "Php library for accessing the iTop API",
+    "authors": [
+        {
+            "name": "Gregory Boddin",
+            "email": "gregory.boddin@ext.ec.europa.eu"
+        }
+    ],
+  "autoload": {
+    "psr-4": {"iTopApi\\": "src/"}
+  },
+    "require": {}
+}
