@@ -24,14 +24,22 @@ namespace iTopApi {
                 'auth_pwd' => $this->password,
                 'json_data' => $payload
             );
-            // Lazy stuff :
-            $fullQuery = $url.'?'.http_build_query($query);
-            if($this->debug)
-                var_dump($fullQuery);
-            $jsonResponse = file_get_contents($fullQuery);
-            $response = json_decode($jsonResponse);
+
+            $params = http_build_query($query);
+
+            $curl = curl_init();
+            curl_setopt($curl,CURLOPT_URL,$url);
+            curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($curl,CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLOPT_POST, count($params));
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+            $jsonResponse = curl_exec($curl);
+            $response = json_decode($jsonResponse,true);
+            curl_close($curl);
+
             if(!$response)
                 throw new \Exception('Invalid response from server : '.$jsonResponse);
+
             return $response;
         }
 

@@ -10,5 +10,7 @@
   "autoload": {
     "psr-4": {"iTopApi\\": "src/"}
   },
-    "require": {}
+    "require": {
+      "ext-curl" : "*"
+    }
 }
