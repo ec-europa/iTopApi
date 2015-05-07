@@ -48,5 +48,14 @@ namespace iTopApi {
             return $this->sendRequest($data);
         }
 
+        public function coreGet($class,$type=null) {
+            if(is_null($type))
+                $type = $class;
+            $data['operation'] = 'core/get';
+            $data['class'] = $class;
+            $data['key'] = 'SELECT '.$type;
+            return $this->sendRequest($data);
+        }
+
     }
 }

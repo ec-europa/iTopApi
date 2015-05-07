@@ -10,5 +10,7 @@ var_dump(
     $iTopClient->operation('core/get',array(
         'class' => 'Person',
         'key' => 'SELECT Person'
-    ))
+    )),
+    $iTopClient->coreGet('Daemon'),
+    $iTopClient->coreGet('Daemon','Apache')
 );
