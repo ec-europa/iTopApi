@@ -13,7 +13,7 @@ namespace iTopApi {
             $this->version = $version;
         }
 
-        public function sendRequest($data) {
+        public function sendRequest(array $data) {
             $url = $this->endpoint . '/webservices/rest.php';
             $data['auth_user'] = $this->user;
             $data['auth_pwd'] = $this->password;
@@ -43,8 +43,9 @@ namespace iTopApi {
             return $response;
         }
 
-        public function operation($operation) {
-            return $this->sendRequest(array('operation' => $operation));
+        public function operation($operation, array $data=array()) {
+            $data['operation'] = $operation;
+            return $this->sendRequest($data);
         }
 
     }
