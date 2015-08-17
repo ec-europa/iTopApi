@@ -5,12 +5,18 @@ namespace iTopApi {
         var $user;
         var $password;
         var $debug = false;
+        var $certificateCheck = true;
+
         public function __construct($endpoint,$user,$password,$version='1.0') {
 
             $this->endpoint = $endpoint;
             $this->user = $user;
             $this->password = $password;
             $this->version = $version;
+        }
+
+        function setCertificateCheck($bool) {
+            $this->certificateCheck = $bool;
         }
 
         public function sendRequest(array $data) {
@@ -28,11 +34,18 @@ namespace iTopApi {
             $params = http_build_query($query);
 
             $curl = curl_init();
-            curl_setopt($curl,CURLOPT_URL,$url);
-            curl_setopt($curl,CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($curl,CURLOPT_HEADER, false);
+            curl_setopt($curl, CURLOPT_URL,$url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_POST, count($params));
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+            if( ! $this->certificateCheck ) {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+            } else {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+            }
             $jsonResponse = curl_exec($curl);
             $response = json_decode($jsonResponse,true);
             curl_close($curl);
