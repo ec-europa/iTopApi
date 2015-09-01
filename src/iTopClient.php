@@ -43,7 +43,7 @@ namespace iTopApi {
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
             } else {
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
             }
             $jsonResponse = curl_exec($curl);
