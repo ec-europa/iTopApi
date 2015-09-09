@@ -77,5 +77,18 @@ namespace iTopApi {
             ));
         }
 
+        public function coreUpdate($class,$query,$data,$comment=null) {
+            if (is_null($comment))
+                $comment = 'iTopAPI library update from '.$this->user;
+
+            return $this->operation('core/update',array(
+                'class' => $class,
+                'key' => $query,
+                'fields' => $data,
+                'comment' => $comment
+            ));
+
+        }
+
     }
 }
