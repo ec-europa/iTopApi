@@ -61,20 +61,16 @@ namespace iTopApi {
             return $this->sendRequest($data);
         }
 
-        public function coreGet($class,$type=null) {
-            if(is_null($type))
-                $type = $class;
-            return $this->operation('core/get',array(
-                'class' => $class,
-                'key' => 'SELECT '.$type
-            ));
-        }
-
-        public function coreGetCustomSelect($class,$query) {
+        public function coreGet($class,$query=null) {
             return $this->operation('core/get',array(
                 'class' => $class,
                 'key' => $query
             ));
+        }
+
+        // soon to be deprecated :
+        public function coreGetCustomSelect($class,$query) {
+            return $this->coreGet($class,$query);
         }
 
         public function coreUpdate($class,$query,$data,$comment=null) {
