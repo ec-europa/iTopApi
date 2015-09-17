@@ -62,6 +62,8 @@ namespace iTopApi {
         }
 
         public function coreGet($class,$query=null) {
+            if(is_null($query))
+                $query = 'SELECT '.$class;
             return $this->operation('core/get',array(
                 'class' => $class,
                 'key' => $query
