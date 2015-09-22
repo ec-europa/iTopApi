@@ -14,7 +14,7 @@ composer require boddigr/itopapi
 
 ### Getting data
 
-```
+```php
 require 'vendor/autoload.php';
 
 $iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
