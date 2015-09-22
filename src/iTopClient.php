@@ -77,11 +77,23 @@ namespace iTopApi {
 
         public function coreUpdate($class,$query,$data,$comment=null) {
             if (is_null($comment))
-                $comment = 'iTopAPI library update from '.$this->user;
+                $comment = 'iTopAPI library update '.$class.' from '.$this->user;
 
             return $this->operation('core/update',array(
                 'class' => $class,
                 'key' => $query,
+                'fields' => $data,
+                'comment' => $comment
+            ));
+
+        }
+
+        public function coreCreate($class,$data,$comment=null) {
+            if (is_null($comment))
+                $comment = 'iTopAPI library create '.$class.' from '.$this->user;
+
+            return $this->operation('core/create',array(
+                'class' => $class,
                 'fields' => $data,
                 'comment' => $comment
             ));
