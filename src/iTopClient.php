@@ -50,8 +50,11 @@ namespace iTopApi {
             $response = json_decode($jsonResponse,true);
             curl_close($curl);
 
-            if(!$response)
+            if(!is_array($response))
                 throw new \Exception('Invalid response from server : '.$jsonResponse);
+
+            if($response['code'] != 0)
+                throw new \Exception('iTop Exception : '.$response['message']);
 
             return $response;
         }
