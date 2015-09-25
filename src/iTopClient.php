@@ -70,6 +70,16 @@ namespace iTopApi {
             ));
         }
 
+        public function coreDelete($class,$query,$comment=null) {
+            if (is_null($comment))
+                $comment = 'iTopAPI library delete '.$class.' from '.$this->user;
+            return $this->operation('core/delete',array(
+                'class' => $class,
+                'key' => $query,
+                'comment' => $comment
+            ));
+        }
+
         // soon to be deprecated :
         public function coreGetCustomSelect($class,$query) {
             return $this->coreGet($class,$query);
