@@ -64,8 +64,6 @@ namespace iTopApi {
             return $this->sendRequest($data);
         }
 
-        public funcion getiTopObject()
-
         public function coreGet($class,$query=null) {
             if(is_null($query))
                 $query = 'SELECT '.$class;
