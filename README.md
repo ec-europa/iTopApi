@@ -7,7 +7,7 @@ iTopApi PHP is an helper class to use and query the [iTop](https://wiki.openitop
 ## Installation **(with composer)** :
 
 ```
-composer require boddigr/itopapi
+composer require ec-europa/itopapi
 ```
 
 ## Usage
