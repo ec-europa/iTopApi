@@ -73,6 +73,15 @@ namespace iTopApi {
             ));
         }
 
+        public function coreGetRelated($class,$key,$relation,$depth=1) {
+            return $this->operation('core/get_related',array(
+                'class' => $class,
+                'key' => $key,
+                'relation' => $relation,
+                'depth' => $depth
+            ));
+        }
+
         public function coreDelete($class,$query,$comment=null) {
             if (is_null($comment))
                 $comment = 'iTopAPI library delete '.$class.' from '.$this->user;
@@ -85,9 +94,17 @@ namespace iTopApi {
 
         // soon to be deprecated :
         public function coreGetCustomSelect($class,$query) {
+            trigger_error("Deprecated function called: iTopApi::coreGetCustomSelect", E_USER_DEPRECATED);
             return $this->coreGet($class,$query);
         }
 
+        /**
+         * @param $class
+         * @param $query
+         * @param $data
+         * @param null $comment
+         * @return mixed
+         */
         public function coreUpdate($class,$query,$data,$comment=null) {
             if (is_null($comment))
                 $comment = 'iTopAPI library update '.$class.' from '.$this->user;
@@ -101,6 +118,12 @@ namespace iTopApi {
 
         }
 
+        /**
+         * @param $class
+         * @param $data
+         * @param null $comment
+         * @return mixed
+         */
         public function coreCreate($class,$data,$comment=null) {
             if (is_null($comment))
                 $comment = 'iTopAPI library create '.$class.' from '.$this->user;
@@ -111,6 +134,33 @@ namespace iTopApi {
                 'comment' => $comment
             ));
 
+        }
+
+        /**
+         * @param $class
+         * @return iTopObject
+         */
+        public function getNewObject($class) {
+            return new iTopObject($class,null,array(),$this);
+        }
+
+        /**
+         * @param $class
+         * @param $query
+         * @return array|iTopObject
+         */
+        public function getObjects($class,$query=null) {
+            $objects = array();
+            $results = $this->coreGet($class,$query);
+            if (count($results['objects']) < 1)
+                return array();
+
+
+            foreach($results['objects'] as $key => $object) {
+                list($class,$key) = explode('::',$key);
+                $objects[] = new iTopObject($class,$key,$object['fields'],$this);
+            }
+            return $objects;
         }
 
     }
