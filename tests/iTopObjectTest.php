@@ -1,19 +1,7 @@
 <?php
 class iTopObjectTest extends PHPUnit_Framework_TestCase
 {
-    static $iTopInstance;
 
-    static function getItopInstance() {
-        if(is_null(self::$iTopInstance)) {
-            self::$iTopInstance =
-                new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-            // switch SSLv3 if available ... ( broken curl )
-            if(defined('CURL_SSLVERSION_SSLv3'))
-                self::$iTopInstance->setCertificateCheck(false)
-                ->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
-        }
-        return self::$iTopInstance;
-    }
 
     public function testSetGet(){
         //get Webservers from demo :
@@ -47,7 +35,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function testCreate(){
 
-        $webserver = self::getItopInstance()->getNewObject('WebServer');
+        $webserver = iTopClientTest::getItopInstance()->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
@@ -60,7 +48,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function testDelete(){
 
-        $webserver = self::getItopInstance()->getNewObject('WebServer');
+        $webserver = iTopClientTest::getItopInstance()->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
@@ -69,13 +57,13 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
         $webserver = $this->getOneWebserverFromDemo(array('name'=>$myNewName));
         $this->assertEquals($myNewName,$webserver->name);
         $webserver->delete();
-        $result = self::getItopInstance()->coreGet('WebServer',array('name'=>$myNewName));
+        $result = iTopClientTest::getItopInstance()->coreGet('WebServer',array('name'=>$myNewName));
         $this->assertArrayHasKey('objects',$result);
         $this->assertNull($result['objects']);
     }
 
     public function getWebserversFromDemo($query=null) {
-       return self::getItopInstance()->getObjects('WebServer',$query);
+       return iTopClientTest::getItopInstance()->getObjects('WebServer',$query);
     }
 
     public function getOneWebserverFromDemo($query=null) {
