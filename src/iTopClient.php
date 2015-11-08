@@ -47,7 +47,14 @@ namespace iTopApi {
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
             }
             $jsonResponse = curl_exec($curl);
+            
+            if($errno = curl_errno($curl)) {
+	      $error_message = curl_strerror($errno);
+              throw new \Exception("cURL error ({$errno}):\n {$error_message}");
+	    }
+            
             $response = json_decode($jsonResponse,true);
+            
             curl_close($curl);
 
             if(!is_array($response))
