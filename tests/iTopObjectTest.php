@@ -37,6 +37,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
     public function testCreate(){
 
         $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
+        $iTopClient->setCertificateCheck(false);
         $webserver = $iTopClient->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
@@ -50,6 +51,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function testDelete(){
         $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
+        $iTopClient->setCertificateCheck(false);
         $webserver = $iTopClient->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
@@ -66,7 +68,8 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function getWebserversFromDemo($query=null) {
         $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-        return $iTopClient->getObjects('WebServer',$query);
+	$iTopClient->setCertificateCheck(false); 
+       return $iTopClient->getObjects('WebServer',$query);
     }
 
     public function getOneWebserverFromDemo($query=null) {
