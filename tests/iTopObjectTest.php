@@ -1,6 +1,18 @@
 <?php
 class iTopObjectTest extends PHPUnit_Framework_TestCase
 {
+    static $iTopInstance;
+
+    static function getItopInstance() {
+        if(is_null(self::$iTopInstance)) {
+            self::$iTopInstance =
+                new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
+            self::$iTopClient->setCertificateCheck(false)
+                ->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
+        }
+        return self::$iTopInstance;
+    }
+
     public function testSetGet(){
         //get Webservers from demo :
         $webserver = $this->getOneWebserverFromDemo();
@@ -33,9 +45,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function testCreate(){
 
-        $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-        $iTopClient->setCertificateCheck(false);
-        $webserver = $iTopClient->getNewObject('WebServer');
+        $webserver = self::getItopInstance()->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
@@ -47,9 +57,8 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
     }
 
     public function testDelete(){
-        $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-        $iTopClient->setCertificateCheck(false);
-        $webserver = $iTopClient->getNewObject('WebServer');
+
+        $webserver = self::getItopInstance()->getNewObject('WebServer');
         $myNewName = 'TestingForCreate'.time();
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
@@ -58,15 +67,13 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
         $webserver = $this->getOneWebserverFromDemo(array('name'=>$myNewName));
         $this->assertEquals($myNewName,$webserver->name);
         $webserver->delete();
-        $result = $iTopClient->coreGet('WebServer',array('name'=>$myNewName));
+        $result = self::getItopInstance()->coreGet('WebServer',array('name'=>$myNewName));
         $this->assertArrayHasKey('objects',$result);
         $this->assertNull($result['objects']);
     }
 
     public function getWebserversFromDemo($query=null) {
-        $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-	$iTopClient->setCertificateCheck(false); 
-       return $iTopClient->getObjects('WebServer',$query);
+       return self::getItopInstance()->getObjects('WebServer',$query);
     }
 
     public function getOneWebserverFromDemo($query=null) {

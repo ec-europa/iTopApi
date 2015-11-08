@@ -1,20 +1,30 @@
 <?php
 class iTopClientTest extends PHPUnit_Framework_TestCase
 {
+
+    static $iTopInstance;
+
+    static function getItopInstance() {
+        if(is_null(self::$iTopInstance)) {
+            self::$iTopInstance =
+                new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
+            self::$iTopClient->setCertificateCheck(false)
+                ->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
+        }
+        return self::$iTopInstance;
+    }
+
+
     public function testCanListOperationsFromDemo() {
-        $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-        $iTopClient->setCertificateCheck(false)->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
-        $response = $iTopClient->sendRequest(array('operation' =>'list_operations'));
+
+        $response = self::getItopInstance()->sendRequest(array('operation' =>'list_operations'));
         $this->assertArrayHasKey('operations',$response,'Operation list was unsucessful !');
     }
 
     public function testGetWebserverFromDemo() {
-        $iTopClient = new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-        $iTopClient->setCertificateCheck(false);
-        $response = $iTopClient->coreGet('WebServer');
+        $response = self::getItopInstance()->coreGet('WebServer');
         $this->assertArrayHasKey('objects',$response,'Response missing objects');
     }
-
 
 
 }
