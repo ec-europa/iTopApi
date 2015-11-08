@@ -17,13 +17,13 @@ namespace iTopApi {
         }
 
         public function setCurlOption($option,$value) {
-            if(!preg_match('/^CURLOPT_/',$option) || !defined($option))
-                throw new \Exception('Unkown option or not a curl option '.$option);
-            $this->curlOptions[constant($option)] = $value;
+            $this->curlOptions[$option] = $value;
+            return $this;
         }
 
         function setCertificateCheck($bool) {
             $this->certificateCheck = $bool;
+            return $this;
         }
 
         public function sendRequest(array $data) {
