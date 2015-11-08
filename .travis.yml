@@ -6,6 +6,6 @@ php:
 before_script:
   - composer self-update
   - composer install
-  - php -r"echo file_get_contents('https://www.google.com/');"
+  - wget "https://demo.combodo.com/simple/" -O -
 script:
   - php vendor/bin/phpunit
