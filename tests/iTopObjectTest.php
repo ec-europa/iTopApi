@@ -24,7 +24,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     public function testSave(){
         //get Webservers from demo :
-        $myNewName = 'TestingForSave'.time();
+        $myNewName = 'TestingForSave'.microtime(true);
         $webserver = $this->getOneWebserverFromDemo();
         $webserver->name = $myNewName;
         $webserver->save();
@@ -36,7 +36,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
     public function testCreate(){
 
         $webserver = iTopClientTest::getItopInstance()->getNewObject('WebServer');
-        $myNewName = 'TestingForCreate'.time();
+        $myNewName = 'TestingForCreate'.microtime(true);
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
         $webserver->org_id = 1;
@@ -49,7 +49,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
     public function testDelete(){
 
         $webserver = iTopClientTest::getItopInstance()->getNewObject('WebServer');
-        $myNewName = 'TestingForCreate'.time();
+        $myNewName = 'TestingForCreate'.microtime(true);
         $webserver->name = $myNewName;
         $webserver->system_id = 1;
         $webserver->org_id = 1;
