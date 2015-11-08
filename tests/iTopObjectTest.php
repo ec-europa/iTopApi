@@ -1,9 +1,6 @@
 <?php
 class iTopObjectTest extends PHPUnit_Framework_TestCase
 {
-
-
-
     public function testSetGet(){
         //get Webservers from demo :
         $webserver = $this->getOneWebserverFromDemo();

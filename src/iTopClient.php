@@ -6,6 +6,7 @@ namespace iTopApi {
         var $password;
         var $debug = false;
         var $certificateCheck = true;
+        private $curlOptions = array();
 
         public function __construct($endpoint,$user,$password,$version='1.0') {
 
@@ -13,6 +14,12 @@ namespace iTopApi {
             $this->user = $user;
             $this->password = $password;
             $this->version = $version;
+        }
+
+        public function setCurlOption($option,$value) {
+            if(!preg_match('/^CURLOPT_/',$option) || !defined($option))
+                throw new \Exception('Unkown option or not a curl option '.$option);
+            $this->curlOptions[constant($option)] = $value;
         }
 
         function setCertificateCheck($bool) {
@@ -48,12 +55,16 @@ namespace iTopApi {
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
             }
 
+            foreach($this->curlOptions as $option => $value) {
+                curl_setopt($curl, $option , $value);
+            }
+
             $jsonResponse = curl_exec($curl);
             
             if($errno = curl_errno($curl)) {
-	      $error_message = curl_strerror($errno);
-              throw new \Exception("cURL error ({$errno}):\n {$error_message}");
-	    }
+	            $error_message = curl_strerror($errno);
+                throw new \Exception("cURL error ({$errno}):\n {$error_message}");
+	        }
             
             $response = json_decode($jsonResponse,true);
             
