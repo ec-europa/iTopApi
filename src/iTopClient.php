@@ -39,13 +39,15 @@ namespace iTopApi {
             curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_POST, count($params));
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-            if( ! $this->certificateCheck ) {
-                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-            } else {
+
+            if( $this->certificateCheck ) {
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
                 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+            } else {
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
             }
+
             $jsonResponse = curl_exec($curl);
             
             if($errno = curl_errno($curl)) {
