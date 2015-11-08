@@ -7,7 +7,9 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
         if(is_null(self::$iTopInstance)) {
             self::$iTopInstance =
                 new iTopApi\iTopClient('https://demo.combodo.com/simple/','admin','admin');
-            self::$iTopInstance->setCertificateCheck(false)
+            // switch SSLv3 if available ... ( broken curl )
+            if(defined('CURL_SSLVERSION_SSLv3'))
+                self::$iTopInstance->setCertificateCheck(false)
                 ->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
         }
         return self::$iTopInstance;
