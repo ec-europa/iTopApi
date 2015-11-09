@@ -3,3 +3,4 @@ tests/test-credentials.php
 .idea
 playground*
 composer.lock
+doc

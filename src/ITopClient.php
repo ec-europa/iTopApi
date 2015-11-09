@@ -8,15 +8,15 @@ namespace iTopApi {
     class ITopClient
     {
         /**
-         * @var Endpoint for iTopApi
+         * @var string Endpoint for iTopApi
          */
         private $endpoint;
         /**
-         * @var Username
+         * @var string Username
          */
         private $user;
         /**
-         * @var Password
+         * @var string Password
          */
         private $password;
         /**
@@ -262,7 +262,7 @@ namespace iTopApi {
         /**
          * Dispense a new ITopObject
          * @param string $class Class to get a new object for
-         * @return iTopObject
+         * @return ITopObject
          */
         public function getNewObject($class)
         {
@@ -273,7 +273,7 @@ namespace iTopApi {
          * Get objects from iTopApi
          * @param string $class Class to get objects for
          * @param mixed  $query Param to be passed as key
-         * @return array|iTopObject
+         * @return array|ITopObject
          */
         public function getObjects($class, $query = null)
         {
@@ -286,7 +286,7 @@ namespace iTopApi {
 
             foreach ($results['objects'] as $key => $object) {
                 list($class,$key) = explode('::', $key);
-                $objects[] = new iTopObject($class, $key, $object['fields'], $this);
+                $objects[] = new ITopObject($class, $key, $object['fields'], $this);
             }
             return $objects;
         }

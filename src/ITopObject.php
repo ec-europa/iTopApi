@@ -24,7 +24,7 @@ namespace iTopApi {
         private $class_;
 
         /**
-         * @var iTopClient Current iTopClient
+         * @var ITopClient Current iTopClient
          */
         private $iTopClient_;
 
@@ -109,6 +109,15 @@ namespace iTopApi {
         {
             $this->dirty_ = true;
             $this->data_[$variable] = $value;
+        }
+
+        /**
+         * Get the current ITopClient
+         * @return ITopClient
+         */
+        public function getITopClient()
+        {
+            return $this->iTopClient_;
         }
     }
 }
