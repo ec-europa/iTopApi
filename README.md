@@ -34,7 +34,7 @@ $servers = $serverRequest['objects'];
 ```php
 require 'vendor/autoload.php';
 
-$iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
+$iTopAPI = new \iTopApi\ITopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
 
 //disable SSL checks ?
 //$iTopAPI->setCertificateCheck(false);
@@ -55,7 +55,7 @@ $request = $iTopAPI->coreCreate("Servers",array(
 ```php
 require 'vendor/autoload.php';
 
-$iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
+$iTopAPI = new \iTopApi\ITopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
 
 //disable SSL checks ?
 //$iTopAPI->setCertificateCheck(false);
@@ -68,3 +68,48 @@ $request = $iTopAPI->coreUpdate("Servers",array(
 
 ```
 
+### Using object oriented
+
+```php
+require 'vendor/autoload.php';
+
+$iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
+
+//disable SSL checks ?
+//$iTopAPI->setCertificateCheck(false);
+
+
+/**
+ * Query and iterate 
+ */
+
+$servers = $iTopAPI->getObjects("Server",
+  array(
+    'name' => 'server001'
+  )
+);
+
+foreach($servers as $server) {
+  echo $server->name.' is '.$server->status_friendlyname;
+  $server->name = 'server001-eu';
+  $server->save();
+}
+
+
+/**
+ * Deletes a new server : 
+ */
+if($server->status_friendlyname == 'decommissioning')
+  $server->delete();
+  
+  
+/**
+ * Creates a new server : 
+ */
+$server = $iTopClient->getNewObject('Server');
+
+$server->name = 'server002';
+$server->status_friendlyname = 'deployed';
+$server->save();
+
+```
