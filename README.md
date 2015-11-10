@@ -17,7 +17,7 @@ composer require ec-europa/itopapi
 ```php
 require 'vendor/autoload.php';
 
-$iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
+$iTopAPI = new \iTopApi\ITopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
 
 //disable SSL checks ?
 //$iTopAPI->setCertificateCheck(false);
@@ -73,7 +73,7 @@ $request = $iTopAPI->coreUpdate("Servers",array(
 ```php
 require 'vendor/autoload.php';
 
-$iTopAPI = new \iTopApi\iTopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
+$iTopAPI = new \iTopApi\ITopClient( 'http://localhost/itop', 'itopUser', 'iTopPassword' );
 
 //disable SSL checks ?
 //$iTopAPI->setCertificateCheck(false);
