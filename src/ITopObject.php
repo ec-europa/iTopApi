@@ -119,5 +119,12 @@ namespace iTopApi {
         {
             return $this->iTopClient_;
         }
+
+        /**
+         * @return int Current object ID in iTop db
+         */
+        public function getKey() {
+            return $this->key_;
+        }
     }
 }
