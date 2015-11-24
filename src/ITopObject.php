@@ -124,7 +124,7 @@ namespace iTopApi {
          * Get current key id from iTop object
          * @return int Current object ID in iTop db
          */
-        public function getKey() 
+        public function getKey()
         {
             return $this->key_;
         }
