@@ -1,6 +1,8 @@
 # iTopApi PHP
 
 [![Build Status](https://travis-ci.org/ec-europa/iTopApi.svg?branch=master)](https://travis-ci.org/ec-europa/iTopApi)
+[![Build Status](https://status.continuousphp.com/git-hub/ec-europa/iTopApi?token=278b777f-fc1e-40ec-8232-7acf7a698669)](https://continuousphp.com/git-hub/ec-europa/iTopApi)
+
 
 iTopApi PHP is an helper class to use and query the [iTop](https://wiki.openitop.org/doku.php) API from your PHP scripts.
 
