@@ -13,11 +13,9 @@
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
-    <filter>
+    <!--<filter>
         <whitelist>
-            <exclude>
-              <directory suffix=".php">/</directory>
-            </exclude>
+            <directory suffix=".php">/</directory>
         </whitelist>
-    </filter>
+    </filter>-->
 </phpunit>
