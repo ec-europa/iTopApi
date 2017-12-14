@@ -29,18 +29,24 @@ namespace iTopApi {
         private $curlOptions = array();
 
         /**
+         * @var bool use environement proxy or not
+         */
+        private $proxyEnv = array();
+
+        /**
          * @param string $endpoint
          * @param string $user
          * @param string $password
          * @param string $version  (Default:1.0)
          */
-        public function __construct($endpoint, $user, $password, $version = '1.0')
+        public function __construct($endpoint, $user, $password, $version = '1.0', $proxyEnv = false)
         {
 
             $this->endpoint = $endpoint;
             $this->user = $user;
             $this->password = $password;
             $this->version = $version;
+            $this->proxyEnv = $proxyEnv;
         }
 
         /**
@@ -91,6 +97,10 @@ namespace iTopApi {
             curl_setopt($curl, CURLOPT_HEADER, false);
             curl_setopt($curl, CURLOPT_POST, count($params));
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+
+            if ($this->proxyEnv == false) {
+                curl_setopt($curl, CURLOPT_PROXY, null);
+            }
 
             if ($this->certificateCheck) {
                 curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);

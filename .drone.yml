@@ -1,0 +1,33 @@
+workspace:
+  base: /test
+  path: fpfismanager
+
+matrix:
+  FPFIS_PHP_VERSION:
+    - 56
+    - 71
+
+pipeline:
+  test-composer-deps:
+    image: fpfis/drone-composer-sa-checker
+    lock_file: composer.lock
+
+  prepare:
+    # Use php${FPFIS_PHP_VERSION} image
+    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    commands:
+      - php --version
+      - composer install
+
+  # Run parallel tests ( groups ) :
+  test-phpunit:
+    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    group: test
+    commands:
+      - ./vendor/bin/phpunit
+
+  test-phpcs:
+    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    group: test
+    commands:
+      - ./vendor/bin/phpcs -p
