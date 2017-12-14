@@ -22,6 +22,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
 
     }
 
+/**
     public function testSave(){
         //get Webservers from demo :
         $myNewName = 'TestingForSave'.microtime(true);
@@ -32,6 +33,7 @@ class iTopObjectTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($myNewName,$webserver->name);
 
     }
+*/
 
     public function testCreate(){
 
