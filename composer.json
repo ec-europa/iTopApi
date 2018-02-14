@@ -3,7 +3,7 @@
     "description": "Php library for accessing the iTop API",
     "type": "library",
     "keywords": ["itop","api","client"],
-    "license": "EUPL",
+    "license": "EUPL-1.1",
     "homepage": "https://github.com/ec-europa/iTopApi",
     "authors": [
         {
