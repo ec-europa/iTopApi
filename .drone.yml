@@ -9,25 +9,27 @@ matrix:
 
 pipeline:
   test-composer-deps:
-    image: fpfis/drone-composer-sa-checker
-    lock_file: composer.lock
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
+    commands:
+      - composer global require sensiolabs/security-checker
+      - ~/.composer/vendor/bin/security-checker security:check
 
   prepare:
     # Use php${FPFIS_PHP_VERSION} image
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     commands:
       - php --version
       - composer install
 
   # Run parallel tests ( groups ) :
   test-phpunit:
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     group: test
     commands:
       - ./vendor/bin/phpunit
 
   test-phpcs:
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     group: test
     commands:
       - ./vendor/bin/phpcs -p
