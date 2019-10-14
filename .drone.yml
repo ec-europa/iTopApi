@@ -13,6 +13,7 @@ services:
     image: vbkunin/itop:2.3.4
     commands: 
       - /run.sh &
+      - mkdir /app/toolkit/
       - cp tests/itop_toolkit/* /app/toolkit/
       - cd /app/toolkit/
       - sleep 10
