@@ -242,7 +242,6 @@ namespace iTopApi {
                 'comment' => $comment
                 )
             );
-
         }
 
         /**
@@ -266,7 +265,6 @@ namespace iTopApi {
                 'comment' => $comment
                 )
             );
-
         }
 
         /**
