@@ -8,6 +8,7 @@ before_install:
 - sleep 10
 - docker exec my-itop bash -c "cd /app/toolkit; php /app/toolkit/unattended_install.php default-params.xml"
 - docker ps -a
+- sleep 10
 
 language: php
 php:
