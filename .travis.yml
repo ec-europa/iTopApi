@@ -22,6 +22,7 @@ before_script:
 script:
   - composer phpcs
   - composer phpunit
+  - curl http://127.0.0.1:80
 matrix:
   fast_finish: true
   allow_failures:
