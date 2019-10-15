@@ -3,7 +3,8 @@ services:
 
 before_install:
 - docker pull vbkunin/itop:2.3.4
-- docker run -d -v $(pwd)/unattended_install.php:/app/toolkit/unattended_install.php $(pwd)/default-params.xml:/app/toolkit/default-params.xml -p 80:80 vbkunin/itop:2.3.4 --name=my-itop 
+- ls -la
+- docker run -d -v $(pwd)/unattended_install.php:/app/toolkit/unattended_install.php $(pwd)/default-params.xml:/app/toolkit/default-params.xml vbkunin/itop:2.3.4 --name=my-itop 
 - docker ps -a
 - docker exec my-itop "cd /app/toolkit; php /app/toolkit/unattended_install.php default-params.xml"
 - docker ps -a
