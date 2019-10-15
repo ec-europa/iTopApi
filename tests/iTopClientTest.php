@@ -6,7 +6,7 @@ class iTopClientTest extends PHPUnit_Framework_TestCase
 
     static function getItopInstance() {
         if(is_null(self::$iTopInstance)) {
-            $itopURL = (getenv ("ITOP_URL") !== FALSE )? getenv ("ITOP_URL") : "http://127.0.0.1:8081";
+            $itopURL = (getenv ("ITOP_URL") !== FALSE )? getenv ("ITOP_URL") : "http://127.0.0.1:80";
             self::$iTopInstance =
                 new iTopApi\ITopClient($itopURL,'admin','admin');
         }
