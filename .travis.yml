@@ -3,7 +3,7 @@ services:
 
 before_install:
 - docker pull vbkunin/itop:2.3.4
-- docker run -d vbkunin/itop:2.3.4 --name=my-itop 
+- docker run -d --name=my-itop vbkunin/itop:2.3.4  
 - docker ps -a
 - docker exec my-itop "mkdir /app/toolkit"
 - docker cp tests/itop_toolkit/unattended_install.php my-itop:/app/toolkit/unattended_install.php
