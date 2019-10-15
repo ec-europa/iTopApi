@@ -7,6 +7,8 @@ before_install:
 - docker ps -a
 - docker exec my-itop ls /app/toolkit
 - docker exec my-itop cat /app/toolkit/default-params.xml
+# Wait for mysql fully started
+- sleep 10
 - docker exec my-itop bash -c "cd /app/toolkit; php /app/toolkit/unattended_install.php default-params.xml"
 - docker ps -a
 
