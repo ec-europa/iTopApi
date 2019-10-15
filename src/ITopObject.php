@@ -81,7 +81,6 @@ namespace iTopApi {
             $this->dirty_ = true;
             $this->key_ = null;
             return $this->iTopClient_->coreDelete($this->class_, $key, $comment);
-
         }
 
         /**

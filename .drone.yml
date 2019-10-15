@@ -1,33 +1,51 @@
 workspace:
   base: /test
-  path: fpfismanager
+  path: toolkit
 
+      
 matrix:
   FPFIS_PHP_VERSION:
     - 56
     - 71
 
-pipeline:
-  test-composer-deps:
-    image: fpfis/drone-composer-sa-checker
-    lock_file: composer.lock
+services:
+  itop:
+    image: vbkunin/itop:2.3.4
+    commands: 
+      - /run.sh &
+      - mkdir /app/toolkit/
+      - cp tests/itop_toolkit/* /app/toolkit/
+      - cd /app/toolkit/
+      # Wait for mysql fully started
+      - sleep 10
+      - /usr/bin/php /app/toolkit/unattended_install.php default-params.xml
+      - chmod 775 -R /app/conf
+      - sleep 3600
 
+pipeline:
   prepare:
     # Use php${FPFIS_PHP_VERSION} image
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     commands:
       - php --version
       - composer install
 
+  test-composer-deps:
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
+    commands:
+      - vendor/bin/security-checker security:check
+
   # Run parallel tests ( groups ) :
   test-phpunit:
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     group: test
+    environment:
+      - ITOP_URL=http://itop:80
     commands:
       - ./vendor/bin/phpunit
 
   test-phpcs:
-    image: fpfis/php${FPFIS_PHP_VERSION}-dev
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     group: test
     commands:
       - ./vendor/bin/phpcs -p
