@@ -6,8 +6,13 @@ class iTopClientTest extends PHPUnit_Framework_TestCase
 
     static function getItopInstance() {
         if(is_null(self::$iTopInstance)) {
+            $itopURL = (getenv ("ITOP_URL") !== FALSE )? getenv ("ITOP_URL") : "http://127.0.0.1:80";
             self::$iTopInstance =
-                new iTopApi\ITopClient('http://itop:80','admin','admin');
+                new iTopApi\ITopClient($itopURL,'admin','admin');
+            // switch SSLv3 if available ... ( broken curl )
+            if(defined('CURL_SSLVERSION_SSLv3'))
+                self::$iTopInstance->setCertificateCheck(false)
+                    ->setCurlOption(CURLOPT_SSLVERSION,CURL_SSLVERSION_SSLv3);
         }
         return self::$iTopInstance;
     }

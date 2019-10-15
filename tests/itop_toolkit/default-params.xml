@@ -17,7 +17,7 @@
     <name>itop</name>
     <prefix></prefix>
   </database>
-  <url>http://itop:80/</url>
+  <url>http://127.0.0.1:80/</url>
   <graphviz_path>/usr/bin/dot</graphviz_path>
   <admin_account>
     <user>admin</user>
