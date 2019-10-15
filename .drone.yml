@@ -16,6 +16,7 @@ services:
       - mkdir /app/toolkit/
       - cp tests/itop_toolkit/* /app/toolkit/
       - cd /app/toolkit/
+      # Wait for mysql fully started
       - sleep 10
       - /usr/bin/php /app/toolkit/unattended_install.php default-params.xml
       - chmod 775 -R /app/conf
@@ -39,10 +40,10 @@ pipeline:
   test-phpunit:
     image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     group: test
+    environment:
+      - ITOP_URL=http://itop:80
     commands:
-      - wget http://itop
       - ./vendor/bin/phpunit
-      
 
   test-phpcs:
     image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
