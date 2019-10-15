@@ -95,7 +95,7 @@ namespace iTopApi {
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HEADER, false);
-            curl_setopt($curl, CURLOPT_POST, count($params));
+            curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
 
             if ($this->proxyEnv == false) {
@@ -287,7 +287,7 @@ namespace iTopApi {
         {
             $objects = array();
             $results = $this->coreGet($class, $query);
-            if (count($results['objects']) < 1) {
+            if (!is_array($results['objects']) || count($results['objects']) < 1) {
                 return array();
             }
 
