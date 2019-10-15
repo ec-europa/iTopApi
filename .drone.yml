@@ -22,18 +22,17 @@ services:
       - sleep 3600
 
 pipeline:
-  test-composer-deps:
-    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
-    commands:
-      - composer global require sensiolabs/security-checker
-      - ~/.composer/vendor/bin/security-checker security:check
-
   prepare:
     # Use php${FPFIS_PHP_VERSION} image
     image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
     commands:
       - php --version
       - composer install
+
+  test-composer-deps:
+    image: fpfis/httpd-php-dev:${PHP_VERSION=5.6}
+    commands:
+      - vendor/bin/security-checker security:check
 
   # Run parallel tests ( groups ) :
   test-phpunit:
