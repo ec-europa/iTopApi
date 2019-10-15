@@ -3,10 +3,7 @@ services:
 
 before_install:
 - docker pull vbkunin/itop:2.3.4
-- docker run -d --name=my-itop -v $(pwd)/tests/itop_toolkit/unattended_install.php:/app/toolkit/unattended_install.php -v $(pwd)/tests/itop_toolkit/default-params.xml:/app/toolkit/default-params.xml vbkunin/itop:2.3.4  
-- docker ps -a
-- docker exec my-itop ls /app/toolkit
-- docker exec my-itop cat /app/toolkit/default-params.xml
+- docker run -d --name=my-itop -p 80:80 -v $(pwd)/tests/itop_toolkit/unattended_install.php:/app/toolkit/unattended_install.php -v $(pwd)/tests/itop_toolkit/default-params.xml:/app/toolkit/default-params.xml vbkunin/itop:2.3.4
 # Wait for mysql fully started
 - sleep 10
 - docker exec my-itop bash -c "cd /app/toolkit; php /app/toolkit/unattended_install.php default-params.xml"
